@@ -5,7 +5,7 @@ body {
         min-height: 100vh;
 } 
 
-.container{
+.container {
     flex:1;
 
 }
@@ -14,6 +14,11 @@ body {
 .navbar {
     height:5rem;
     background-color: white;
+    
+}
+
+.font-bold-text-xl{
+    text-decoration-color: red;
 }
 
 .fa-compass {
@@ -26,9 +31,27 @@ color:#222222 ! important ;
 }
 
 /* Footer */
+footer {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.f-info {
+    text-align: center;
+    height: 7rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; /* Corrected align-items: space-evenly */
+    gap: 0.2rem;
+}
+
 .f-info-links a {
-       text-decoration: none;
-        color: #222222;
+    text-decoration: none;
+    color: #222222;
 }
 
 .f-info-links a:hover {
@@ -36,31 +59,31 @@ color:#222222 ! important ;
 }
 
 .f-info-links, .f-info-socials, .f-info-brand {
-    width: 100%;
-    display:flex ;
-    align-items:center ;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 100%;
+    cursor: pointer;
 }
 
-
-.f-info-socials i{
+.f-info-socials i {
     font-size: 1.2rem;
-    margin-right: 1rem;
-
+    margin-right: 0.7rem;
 }
 
-.f-info {
+.f-info{
     text-align: center;
-    height:8rem ;
-    background-color: #ebeded;
+    height: 7rem;
+    background-color: #ebebeb;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: space-evenly;
+    align-items:space-evenly;
+    gap: 0.2rem;
 }
 
 /*cards*/
-.card
+.listing-card
 {
     border: none !important;
     margin-bottom: 2rem;
@@ -105,3 +128,30 @@ color:#222222 ! important ;
     background-color: #fe424d !important;
     border: none !important;
 }
+
+
+
+.New{
+    margin-top: 0.5rem;
+}
+
+
+/* Show page*/
+.show-img {
+    height:30vh;
+}
+.btns{
+    display: flex;
+}
+
+.show-card {
+    padding-left:0 ;
+    padding-right: 0;
+}
+
+/* Map */
+#map {
+     height: 400px;
+     width: 80vh;
+     
+    }
