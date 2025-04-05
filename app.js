@@ -1,6 +1,5 @@
-import gOPD from './gOPD.js';
-if(process.env.NODE_ENV != "production"){
-  require('dotenv').config();
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
 }
 
 const express = require("express");
@@ -10,8 +9,8 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-const session = require ("express-session");
-const MongoStore = require('connect-mongo');
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -21,12 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-
-
-const dbUrl= process.env.ATLASDB_URL;
-
-
-
+const dbUrl = process.env.ATLASDB_URL;
 
 // Database Connection
 main()
@@ -43,23 +37,23 @@ async function main() {
 
 // App Configuration
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views")); // Updated to __dirname
+app.set("views", path.join(__dirname, "views")); // Fixed `dirname`
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
-app.use(express.static(path.join(__dirname, "/public"))); // Updated to __dirname
+app.use(express.static(path.join(__dirname, "/public"))); // Fixed `dirname`
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret:process.env.SECRET,
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 60 * 60, // 1 day
 });
 
-store.on("error", () =>{
-  console.log("Session store error", err);
-} );
+store.on("error", (err) => {
+  console.log("Session store error", err); // Fixed missing `err` parameter
+});
 
 const sessionOptions = {
   store,
@@ -68,18 +62,10 @@ const sessionOptions = {
   saveUninitialized: true,
   Cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 10000,
-    maxAge:7 * 24 * 60 * 60 * 10000, // 1 hour
-    httpOnly: true
+    maxAge: 7 * 24 * 60 * 60 * 10000, // 1 hour
+    httpOnly: true,
   },
 };
-
-// Root Route
-//app.get("/", (req, res) => {
- // res.send("Hello, I am root");
-//});
-
-
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -92,19 +78,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
- res.locals.success = req.flash("success");
- res.locals.error = req.flash("error");
- res.locals.currentUser = req.user;
- next();
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currentUser = req.user;
+  next();
 });
-//app.get("/demouser", async(req, res) => {
-  //let fakeUser = new User({
-   // email: "abhi@gmail.com",
-   // username: "abhi60",
- // });
- // let registeredUser = await User.register(fakeUser, "helloword");
-  //res.send("registeredUser");
-//});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
