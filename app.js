@@ -1,3 +1,4 @@
+import gOPD from './gOPD.js';
 if(process.env.NODE_ENV != "production"){
   require('dotenv').config();
 }
